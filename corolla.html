@@ -996,8 +996,13 @@
 
   <script>
     function volverAJuegos() {
-      window.location.replace('index.html#juegos');
-    }
+    // Reconstruye toda la URL desde cero
+      const newUrl = window.location.protocol + '//' + 
+                    window.location.hostname + 
+                    (window.location.port ? ':' + window.location.port : '') +
+                    '/index.html#juegos';
+      window.location.href = newUrl;
+  }
     
   </script>
 </body>
