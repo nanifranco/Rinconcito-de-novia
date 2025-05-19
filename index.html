@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rinconcito de Novia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Creepster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-primario: #8b0000;
+            --color-secundario: #121212;
+            --color-texto: #e0e0e0;
+            --color-fondo: #121212;
+            --color-borde: #333;
+            --sombra: 0 4px 6px rgba(0, 0, 0, 0.6);
+            --sombra-hover: 0 8px 15px rgba(139, 0, 0, 0.4);
+            --transicion: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-fondo);
+            font-family: "Poppins", sans-serif;
+            color: var(--color-texto);
+            overflow: hidden;
+            background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
+        }
+
+        #titulo-esquina {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-family: 'Creepster', cursive;
+            font-size: 1.4em;
+            font-weight: 600;
+            color: var(--color-primario);
+            z-index: 10;
+            transition: var(--transicion);
+            display: none;
+            cursor: pointer;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        #titulo-esquina:hover {
+            color: #c00000;
+            transform: translateY(-2px);
+            text-shadow: 2px 2px 6px rgba(139, 0, 0, 0.7);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            background-color: rgba(30, 30, 30, 0.9);
+            padding: 30px;
+            border-radius: 0;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+            text-align: center;
+            position: fixed;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            display: none;
+            border: 1px solid var(--color-primario);
+        }
+
+        .foto {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--color-primario);
+            margin-bottom: 15px;
+            box-shadow: var(--sombra);
+        }
+
+        /* Estilos para la galería - Versión gótica */
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            width: 100%;
+        }
+
+        .foto-oops:last-child:nth-child(odd) {
+            grid-column: 1 / -1;
+            max-width: 550px; /* El mismo ancho que las demás */
+            margin: 0 auto;   /* Centrado horizontal */
+        }
+
+        .foto-oops {
+            background-color: rgba(30, 30, 30, 0.9);
+            border-radius: 0;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            border: 1px solid var(--color-primario);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .foto-oops:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(139, 0, 0, 0.4);
+            border-color: #a00000;
+        }
+
+        .foto-oops img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border: 1px solid var(--color-primario);
+            margin-bottom: 10px;
+        }
+
+        .foto-oops p {
+            font-size: 0.9em;
+            color: var(--color-texto);
+            margin: 0;
+            font-family: 'Cinzel Decorative', cursive;
+            padding: 5px;
+        }
+
+        /* Contenedor para las secciones de galería */
+        .galeria-container {
+            background-color: rgba(20, 20, 20, 0.7);
+            padding: 20px;
+            max-width: 800px;
+            border: 1px solid var(--color-primario);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8em;
+            color: var(--color-primario);
+            font-weight: 600;
+            font-family: 'Creepster', cursive;
+            text-shadow: 2px 2px 4px #000;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 10px;
+            color: var(--color-texto);
+            font-family: 'Cinzel Decorative', cursive;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: var(--color-texto);
+            opacity: 0.8;
+        }
+
+        .timer {
+            font-size: 1.3em;
+            font-weight: 500;
+            color: var(--color-texto);
+            margin-bottom: 20px;
+            font-family: 'Cinzel Decorative', cursive;
+        }
+
+        .botones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .botones button {
+            background: linear-gradient(to bottom, #222, #111);
+            color: var(--color-texto);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: var(--transicion);
+            box-shadow: var(--sombra);
+            font-family: 'Cinzel Decorative', cursive;
+            border: 1px solid var(--color-primario);
+        }
+
+        .botones button:hover {
+            background: linear-gradient(to bottom, #333, #222);
+            transform: translateY(-3px);
+            box-shadow: var(--sombra-hover);
+            border-color: var(--color-secundario);
+        }
+
+        .seccion {
+            display: none;
+            padding: 30px;
+            background-color: rgba(30, 30, 30, 0.9);
+            border-radius: 0;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+            width: 90%;
+            max-width: 800px;
+            margin: 30px auto;
+            text-align: center;
+            position: relative;
+            top:auto;
+            left:auto;
+            transform: none;
+            z-index: 1;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid var(--color-primario);
+        }
+
+        .seccion::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 65%, rgba(139, 0, 0, 0.1) 100%);
+            pointer-events: none;
+        }
+
+        .tarjeta {
+            background-color: rgba(20, 20, 20, 0.7);
+            border-radius: 0;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: left;
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+            border-left: 3px solid var(--color-primario);
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-hover);
+        }
+
+        .tarjeta h3 {
+            font-size: 1.2em;
+            color: var(--color-primario);
+            margin-bottom: 5px;
+            font-family: 'Cinzel Decorative', cursive;
+        }
+
+        .volver {
+            margin-top: 20px;
+            background: linear-gradient(to bottom, #222, #111);
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: var(--color-texto);
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+            font-size: 1em;
+            transition: var(--transicion);
+            text-align: center;
+            font-family: 'Cinzel Decorative', cursive;
+            border: 1px solid var(--color-primario);
+            box-shadow: var(--sombra);
+        }
+
+        .volver:hover {
+            background: linear-gradient(to bottom, #333, #222);
+            transform: translateY(-3px);
+            box-shadow: var(--sombra-hover);
+            border-color: var(--color-secundario);
+        }
+
+        .foto {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #ddd;
+        margin-bottom: 15px;
+        }
+
+
+        #pantalla-contrasena {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
+            overflow: hidden;
+        }
+
+        #pantalla-contrasena .contenido {
+            background-color: rgba(30, 30, 30, 0.9);
+            padding: 40px;
+            border-radius: 0;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            animation: aparecer 0.6s ease-out;
+            border: 1px solid var(--color-primario);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #pantalla-contrasena .contenido::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 65%, rgba(139, 0, 0, 0.1) 100%);
+            pointer-events: none;
+        }
+
+        #pantalla-contrasena h1 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: var(--color-primario);
+            font-family: 'Creepster', cursive;
+            text-shadow: 2px 2px 4px #000;
+            letter-spacing: 2px;
+        }
+
+        #pantalla-contrasena p {
+            color: var(--color-texto);
+            margin-bottom: 25px;
+            opacity: 0.8;
+        }
+
+        #pantalla-contrasena .input-contenedor {
+            position: relative;
+            margin-bottom: 20px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #contrasena {
+            padding: 15px 20px;
+            font-size: 1em;
+            border-radius: 0;
+            border: 1px solid var(--color-borde);
+            width: 100%;
+            transition: var(--transicion);
+            font-family: 'Cinzel Decorative', cursive;
+            background-color: rgba(20, 20, 20, 0.7);
+            color: var(--color-texto);
+            border-bottom: 2px solid var(--color-primario);
+        }
+
+        #contrasena:focus {
+            outline: none;
+            border-color: var(--color-secundario);
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+        }
+        #togglePassword {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: var(--color-primario);
+            transition: var(--transicion);
+        }
+
+        #togglePassword:hover {
+            color: var(--color-secundario);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .boton-contrasena {
+            background: linear-gradient(to bottom, #222, #111);
+            color: var(--color-texto);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: var(--transicion);
+            box-shadow: var(--sombra);
+            font-family: 'Cinzel Decorative', cursive;
+            border: 1px solid var(--color-primario);
+            margin-top: 10px;
+        }
+
+        .boton-contrasena:hover {
+            background: linear-gradient(to bottom, #333, #222);
+            transform: translateY(-3px);
+            box-shadow: var(--sombra-hover);
+            border-color: var(--color-secundario);
+        }
+
+        #mensaje-error, #mensaje-bloqueo {
+            color: var(--color-primario);
+            margin-top: 15px;
+            font-weight: 500;
+            display: none;
+            text-shadow: 1px 1px 2px #000;
+            font-family: 'Cinzel Decorative', cursive;
+        }
+
+        #contador-intentos {
+            margin-top: 15px;
+            color: var(--color-texto);
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+
+        /* Estilos para los contenedores de mapas */
+        .mapa-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Esto centrará los mapas horizontalmente */
+            gap: 20px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .mapa-card {
+            width: 100%;
+            max-width: 600px; /* Puedes ajustar este valor según prefieras */
+            margin: 0 auto; /* Esto ayuda a centrar si el contenedor no ocupa todo el ancho */
+            padding: 0;
+        }
+
+        .mapa-descripcion h4 {
+            text-align: center;
+            text-shadow: 2px 2px 4px #000;
+            margin: 10px 0;
+            color: var(--color-texto);
+            font-size: 1.2em;
+            font-family: 'Cinzel Decorative', cursive;
+        }
+
+        /* Estilos para los checkboxes */
+        input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background-color: var(--color-secundario);
+            border: 2px solid var(--color-primario);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            margin-right: 10px;
+            vertical-align: middle;
+            transition: var(--transicion);
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: var(--color-primario);
+        }
+
+        input[type="checkbox"]:checked::after {
+            content: "✓";
+            position: absolute;
+            color: var(--color-texto);
+            font-size: 14px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        input[type="checkbox"]:hover {
+            box-shadow: 0 0 5px var(--color-primario);
+        }
+
+        .tarjeta label {
+            cursor: pointer;
+            vertical-align: middle;
+        }
+
+        .tarjeta h3 {
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilos para el menú de juegos - GÓTICO */
+        .menu-juegos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .menu-juegos button {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            border: 2px solid #8b0000;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.7);
+            color: #e0e0e0;
+            font-size: 0.9em;
+            font-family: 'Cinzel Decorative', cursive;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            text-align: center;
+            text-shadow: 1px 1px 2px #000;
+            cursor: pointer;
+        }
+
+        .menu-juegos button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #8b0000, 0 0 10px #4b0000 inset;
+            border-color: #a00000;
+            background: linear-gradient(145deg, #2a0a0a, #1a0000);
+        }
+
+        .menu-juegos i {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            #pantalla-contrasena .input-contenedor {
+                width: 90%;
+            }
+            
+            .container, .seccion {
+                width: 85%;
+                padding: 20px;
+            }
+            
+            .botones {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .botones button {
+                width: auto;
+            }
+            
+            .volver {
+                width: auto;
+            }
+
+            /* Ajustes para menú de juegos en móviles */
+            .menu-juegos button {
+                width: 120px;
+                height: 120px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Pantalla de contraseña -->
+<div id="pantalla-contrasena">
+    <div class="contenido">
+        <h1>Ingresa la contraseña</h1>
+        <div class="input-contenedor">
+            <input type="password" id="contrasena" placeholder="Contraseña">
+            <button id="togglePassword"><i class="fas fa-eye"></i></button>
+        </div>
+        
+        <button class="boton-contrasena" id="btn-entrar">
+            <i class="fas fa-skull"></i> Entrar
+        </button>
+        
+        <p id="mensaje-error"><i class="fas fa-exclamation-triangle"></i> Contraseña incorrecta. Intenta de nuevo.</p>
+        <p id="mensaje-bloqueo"><i class="fas fa-lock"></i> Demasiados intentos fallidos. Intenta de nuevo en <span id="tiempo-restante">5:00</span> minutos.</p>
+        <p id="contador-intentos">Intentos restantes: <span id="intentos">5</span></p>
+    </div>
+</div>
+
+<!-- Título en esquina -->
+<div id="titulo-esquina" onclick="volverAPantallaContrasena()">Rinconcito de Novia</div>
+
+<!-- Página principal -->
+<div class="container" id="inicio" style="display: none;">
+    <img src="https://i.postimg.cc/rDnPTBMy/c78c5a89.jpg" alt="Foto de nosotras" class="foto">
+    <h1>Hola Novia :)</h1>
+    <p>Tiempo que llevamos juntas:</p>
+    <div class="timer" id="timer">Cargando...</div>
+
+    <div class="botones">
+        <button onclick="mostrarSeccion('carta')">Carta</button>
+        <button onclick="mostrarSeccion('recuerdos')">Cosas que me recuerdan a ti</button>
+        <button onclick="mostrarSeccion('planes')">Cosas que quiero hacer contigo</button>
+        <button onclick="mostrarSeccion('gustos')">Razones por las que te amo</button>
+        <button onclick="mostrarSeccion('oops')">Oops</button>
+        <button onclick="mostrarSeccion('juegos')">Juegos</button>
+    </div>
+</div>
+
+<!-- Secciones -->
+<div class="seccion" id="carta">
+    <h1>Carta</h1>
+    <div class="tarjeta">
+        <div style="height: 70vh; width: 100%; margin: 20px 0; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <iframe
+                src="https://drive.google.com/file/d/11Ok9GvKgx_dDLyBPcZXY7zH8SrqRnzr3/preview"
+                width="100%"
+                height="100%"
+                style="border: none;"
+                allow="autoplay"
+            ></iframe>
+        </div>
+    </div>
+    <br><br>
+    <a class="volver" onclick="volverInicio()">Volver</a>  
+</div>
+
+<div class="seccion" id="recuerdos">
+    <h1>Cosas que me recuerdan a ti</h1>
+    <br>
+    <div class="playlist-container">
+        <h2>Canciones</h2>
+        <div class="spotify-playlist">
+            <iframe
+                src="https://embed.music.apple.com/us/playlist/canciones-nov/pl.u-leylWEGtWeYjex"
+                width="100%"
+                height="380"
+                frameborder="0"
+                allowtransparency="true"
+                allow="encrypted-media">
+            </iframe>
+        </div>
+    </div>
+    <br> <br> <br>
+    <h2>Mhmmm si (muchas cosas no las puedo explicar jjajajaj)</h2>
+    <div class="galeria">
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/jqWzCqSt/Screenshot-2025-05-16-at-9-18-47-a-m.png" alt="Meme 1">
+            <p>Este perro, sin contexto</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/rwNgm9wC/Screenshot-2025-03-24-at-11-48-22-p-m.png" alt="Meme 2">
+            <p>Goldfish!!</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/k4XXDy3D/Screenshot-2025-05-18-at-6-33-05-p-m.png" alt="Meme 3">
+            <p>Los mininos güeros y negros</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/fRKKYwSy/Screenshot-2025-05-18-at-6-28-55-p-m.png" alt="Meme 4">
+            <p>A veceas mi novia gomita</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/rpjw84rg/Screenshot-2025-05-18-at-6-23-50-p-m.png" alt="Meme 5">
+            <p>Bibble</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/zDjVJ9n8/Screenshot-2025-05-18-at-6-21-35-p-m.png" alt="Meme 6">
+            <p>Los nernurines</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/TYQDSN7b/Screenshot-2025-03-24-at-11-04-34-p-m.png" alt="Meme 7">
+            <p>Este minino</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/B6ZgHfkh/Screenshot-2025-03-24-at-10-40-22-p-m.png" alt="Meme 8">
+            <p>Mi novia cuanto muerde</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/9FX4GtmQ/Screenshot-2025-03-24-at-11-06-27-p-m.png" alt="Meme 9">
+            <p>Este otro minino</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/SRP3gfMz/Screenshot-2025-03-24-at-11-59-38-p-m.png" alt="Meme 10">
+            <p>El manicure de cabaglios</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/tC8XYXwz/Screenshot-2025-03-24-at-10-18-48-p-m.png" alt="Meme 11">
+            <p>Este gato se parece a ti con <b> NUESTRO </b> suéter rojo.</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/G3ydJFzB/Screenshot-2025-03-28-at-9-29-11-a-m.png" alt="Meme 12">
+            <p>Los cabaglios pequeños y compactos</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/C5Ty62JR/images-1.jpg" alt="Meme 13">
+            <p>Este perrito</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/VNrVQRJn/Screenshot-2025-03-28-at-9-38-44-a-m.png" alt="Meme 14">
+            <p>Las tejanas :) jajaja perdon la foto, esque estaba raro poner asi un sombrero random </p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/FKy0Ldqw/Screenshot-2025-03-28-at-9-45-12-a-m.png" alt="Meme 15">
+            <p>Los Dairy Queens</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/K8n1qXNM/Unknown.jpg" alt="Meme 16">
+            <p>Los nuggets de McDonalds</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/3rc58CDL/Screenshot-2025-04-03-at-1-40-14-p-m.png" alt="Meme 17">
+            <p>Los pequeños niños medievales</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/KYSmZ7CX/Unknown-1.jpg" alt="Meme 18">
+            <p>El cine !</p>
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/3wFtBLNZ/IMG-C681-A518-D03-B-1.jpg" alt="Meme 19">
+            <p> Practicamente todo lo que existe en este planeta </p>
+        </div>
+    </div>
+        <br>
+        <h2>Lugares</h2>
+        <br><br>
+        <div class="mapa-container">
+
+            <div class="mapa-card">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3765.23456789!2d-99.2192939!3d19.3135357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cdffd0a9cb3e21%3A0x4e0592564c93f2c4!2sARTZ%20Pedregal!5e0!3m2!1ses!2smx!4v1234567890"
+                    width="100%"
+                    height="250"
+                    style="border:0; border-radius: 12px;"
+                    allowfullscreen=""
+                    loading="lazy">
+                </iframe>
+                <div class="mapa-descripcion">
+                    <h4>Artz</h4>
+                </div>
+            </div>
+           
+            <div class="mapa-card">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3764.2787618692146!2d-99.27216632505127!3d19.357078743089012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d200b61f4f9119%3A0xeb1aa1132041ced2!2sParque%20La%20Mexicana!5e0!3m2!1ses-419!2smx!4v1743705389890!5m2!1ses-419!2smx" 
+                    width="100%"
+                    height="250"
+                    style="border:0; border-radius: 12px;"
+                    allowfullscreen=""
+                    loading="lazy">
+                </iframe>
+                <div class="mapa-descripcion">
+                    <h4>La Mexicana</h4>
+                </div>
+            </div>
+     
+            <div class="mapa-card">
+              <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.6045709795244!2d-99.19991492504965!3d19.429484040780967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d201f879059717%3A0x14b2be7262bfc09a!2sParque%20Lincoln!5e0!3m2!1ses-419!2smx!4v1743705233401!5m2!1ses-419!2smx"
+                  width="100%"
+                  height="250"
+                  style="border:0; border-radius: 12px;"
+                  allowfullscreen=""
+                  loading="lazy">
+              </iframe>
+              <div class="mapa-descripcion">
+                  <h4>Parque Lincon</h4>
+              </div>
+          </div>
+        </div>
+    <br>
+    <a class="volver" onclick="volverInicio()">Volver</a>   
+</div>
+<div class="seccion" id="planes">
+    <h1>Cosas que quiero hacer contigo</h1>  
+    <br>
+   <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="hacer_crucero_alaska">
+         <label for="hacer_crucero_alaska">Hacer un crucero por Alaska 🚢</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="crear_refugio_mascotas">
+         <label for="crear_refugio_mascotas">Crear un refugio para perritos y gatitos rescatados 🐾</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="ver_partido_mundial_mexico">
+         <label for="ver_partido_mundial_mexico">Ver un partido del Mundial en el que juegue México 🏆</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="celebrar_oscar_esposa">
+         <label for="celebrar_oscar_esposa">Celebrar cuando mi mujer gane su primer Oscar y gritar: ¡Yo te amo esposa! para que me conteste: "Yo a ti, ciudadano promedio" 🎬</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="leer_libro_juntas">
+         <label for="leer_libro_juntas">Leer un libro juntas (Irónicamente creo que va a ser de las más difíciles de cumplir jajajaj) 📚</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="ver_auroras_boreales">
+         <label for="ver_auroras_boreales">Ver auroras boreales 🌌</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="parques_disney_mundo">
+         <label for="parques_disney_mundo">Ir a todos los parques de Disney alrededor del mundo 🎢</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="plantar_arbolito">
+         <label for="plantar_arbolito">Plantar un arbolito juntas (Esperemos no matarlo 😂) 🌳</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="safari_africa">
+         <label for="safari_africa">Ir de safari en África 🦁</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="viajar_cuba">
+         <label for="viajar_cuba">Viajar a Cuba 🇨🇺</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="visitar_piramides_egipto">
+         <label for="visitar_piramides_egipto">Visitar las pirámides de Egipto 🏜️</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="hacer_road_trip">
+         <label for="hacer_road_trip">Hacer un road trip 🚘</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="viajar_italia">
+         <label for="viajar_italia">Viajar a Italia 🇮🇹</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="ver_lago_cisnes_rusia">
+         <label for="ver_lago_cisnes_rusia">Ver El Lago de los Cisnes en Rusia 🎭</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="proyecto_diy">
+         <label for="proyecto_diy">Hacer un proyecto DIY juntas 🛠️</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="sleepover_museo">
+         <label for="sleepover_museo">Hacer un sleepover en un museo 🏛️</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="explorar_ruinas_grecia">
+         <label for="explorar_ruinas_grecia">Explorar las ruinas de Grecia y visitar Lesbos 🏺</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="viajar_tren_europa">
+         <label for="viajar_tren_europa">Viajar en tren por Europa 🚂</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="nadar_tiburones_blancos">
+         <label for="nadar_tiburones_blancos">Nadar con tiburones blancos (Con jaula por favor) 🦈</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="ir_las_vegas_gran_canon">
+         <label for="ir_las_vegas_gran_canon">Ir a Las Vegas y visitar el Gran Cañón 🎰</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="ir_esquiar">
+         <label for="ir_esquiar">Ir a esquiar juntas 🎿</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="cargar_panda_bebe_china">
+         <label for="cargar_panda_bebe_china">Cargar un panda bebé en China y tratar de secuestrarlo 🐼</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="opera_viena_elegantes">
+         <label for="opera_viena_elegantes">Ir a la Ópera de Viena vestidas súper elegantes 🎭</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="crear_fundacion_lgbtq">
+         <label for="crear_fundacion_lgbtq">Crear una fundación pro LGBTQ+ rights 🏳️‍🌈</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="ver_bioluminiscencia_playa">
+         <label for="ver_bioluminiscencia_playa">Ver la bioluminiscencia en una playa virgen 🌊</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="cena_romantica_paris">
+         <label for="cena_romantica_paris">Hacer una cena romántica en París 🌙</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="ver_lanzamiento_cohete">
+         <label for="ver_lanzamiento_cohete">Ver un lanzamiento de cohete en vivo 🚀</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="ver_mariposas_monarca">
+         <label for="ver_mariposas_monarca">Ver las mariposas Monarca migrando 🦋</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="aprender_bailar_juntas">
+         <label for="aprender_bailar_juntas">Aprender a bailar juntas (Aunque mi mujer me va a tener que tener mucha paciencia 😅)</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="album_fotos_momentos_especiales">
+         <label for="album_fotos_momentos_especiales">Hacer un álbum de fotos con nuestros momentos más especiales 📷💃</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="primera_casa_decorar">
+         <label for="primera_casa_decorar">Tener nuestra primera casa o departamento juntas y decorarlo súper padre 🏡</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="candado_puente_artes_paris">
+         <label for="candado_puente_artes_paris">Poner nuestro candado en el Puente de las Artes en París 🔒</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="bucear_juntas">
+         <label for="bucear_juntas">Bucear juntas 🤿</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="visitar_machu_picchu">
+         <label for="visitar_machu_picchu">Visitar Machu Picchu 🌄</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="visitar_coliseo_romano">
+         <label for="visitar_coliseo_romano">Visitar el Coliseo Romano y convencer a mi mujer de que no es buena idea traerlo de vuelta 🏛️</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="echar_porras_longines">
+         <label for="echar_porras_longines">Echarte muchas porras cuando ganes la Longines (Y tal vez utilizar mi sensualidad para convencer a mi mujer de que me regale su reloj 😉)</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="trineo_huskies">
+         <label for="trineo_huskies">Subirnos en trineo con huskies ❄️</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="ver_pinguinos_habitat">
+         <label for="ver_pinguinos_habitat">Ver pingüinos en su hábitat natural 🐧</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="casarnos">
+         <label for="casarnos">Casarnos! (Ayyy, Hasta me ilusiono de imaginarte vestida de novia :)</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="voluntariado_causa_importante">
+         <label for="voluntariado_causa_importante">Hacer un voluntariado y ayudar a una causa importante juntas 🌎</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="partido_futbol_femenil">
+         <label for="partido_futbol_femenil">Ir a un partido de fútbol femenil ⚽</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="evento_olimpiadas">
+         <label for="evento_olimpiadas">Ir a un evento de las Olimpiadas 🤸‍♀️</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="ver_triunfar_esposa">
+         <label for="ver_triunfar_esposa">Ver triunfar a mi esposa, porque es una chinchona y estoy segura de que va a llegar muy lejos 🖤🏆</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="tener_perrijos_gatijos">
+         <label for="tener_perrijos_gatijos">Tener perrijos y gatijos 🐶</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="despertar_abrazar_todas_noches">
+         <label for="despertar_abrazar_todas_noches">Despertar todos los días contigo y poderte abrazar todas las noches (Aunque mi mujer me deje en una esquinita de la cama)</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="viajar_transiberiano">
+         <label for="viajar_transiberiano">Viajar en el Transiberiano 🚂❄️</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="subir_volcan_activo">
+         <label for="subir_volcan_activo">Subir un volcán activo 🌋</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="ver_maravillas_mundo">
+         <label for="ver_maravillas_mundo">Ver todas las maravillas del mundo 🗺️ </label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="ver_peliculas_nominadas_oscar">
+         <label for="ver_peliculas_nominadas_oscar">Ver todas las películas nominadas al Oscar 🌟 (Eso incluye Emilia Perez 😟)</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="nadar_ballenas_jorobadas">
+         <label for="nadar_ballenas_jorobadas">Nadar con ballenas jorobadas 🐋</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="ir_samoa_americana">
+         <label for="ir_samoa_americana">Ir a Samoa Americana 🏝️</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="stargazing_desierto">
+         <label for="stargazing_desierto">Hacer stargazing en el desierto, lejos de las luces de la ciudad ✨</label>
+       </p>
+     </div>
+    
+     <div class="tarjeta">
+       <p>
+         <input type="checkbox" id="volar_globo_aerostatico">
+         <label for="volar_globo_aerostatico">Volar en un globo aerostático 🎈</label>
+       </p>
+       </div>
+   <br>
+   <h3> Aunque lo más importante de toda la lista es compartir toda la vida juntas. Eso es lo que más quiero en la vida. 💙🖤 </h3>  
+   <br>
+    <a class="volver" onclick="volverInicio()">Volver</a>
+</div>
+
+<div class="seccion" id="gustos">
+    <h1>Razones por las que te amo</h1>
+    <br>
+    <div class="tarjeta">
+        <p>Por la honestidad que nos tenemos.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque me amas aunque nunca sé qué hacer para nuestras dates.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque haces un esfuerzo por hablar las cosas, aunque te sientas mal.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siempre me recomiendas movies buenísimas.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque eres una persona muy fuerte.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque me amas aunque no ponga atención en las pelis.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque me mandas mensajitos random diciendo que me amas.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siempre tienes random facts muy simpáticos.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque no te da miedo ser tú misma.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque eres una persona muy auténtica.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siempre sabes sacarme una sonrisa.</p>
+    </div>
+    <div class="tarjeta">
+        <p>¡Porque tienes unos ojazos!</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque me echas muchas porras y me motivas mucho.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque haces un esfuerzo por tratar de llevarte con la gente que me importa.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque eres muy apasionada.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siempre me haces sentir validada.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque las dos estamos igual de locas jejeje.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque sin importar el tiempo que llevemos, me sigo ilusionando como el primer día cuando te veo.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque me dejas darte besos mensos.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque no me cuelgas el teléfono aunque te estés durmiendo.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque tienes la sonrisa más bonita del mundo.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque me enseñas el buen cine (Borat, Barbie, Bojack Horseman).</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque, aunque no te guste aceptarlo, eres la persona más tierna del mundo.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque eres la mejor almohada.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque das los mejores abrazos.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque eres la mujer más guapa del mundo.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siempre encontramos animales y personajes que "se parecen a mi novia" jajajja.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque me haces reír muchísimo.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque eres una persona sumamente cariñosa.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque tienes muchos sueños y metas.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque me dejas despeinar tu pelito :)</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque amas a los animales.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque eres la mejor compañía.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque eres súper inteligente y siempre sabes muchas cosas jajaj.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque desde que te conocí tengo ganas de hacer todo contigo.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siempre haces un esfuerzo por hacerme sentir especial.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque haces un esfuerzo por conocerme más.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque me tienes mucha paciencia cuando estoy de intensa.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque me inspiras a ser la persona que tú ves en mí.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque eres mi safe place.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siempre estás ahí para mí.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque tienes una manera de querer increíble.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque eres la mejor novia del mundo.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque me haces sentirme muy suertuda de que seas mi novia.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque tienes un corazón hermoso (que también es de ardilla).</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque me consientes demasiado (me estás mal acostumbrando jajaja).</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque haces que mi vida sea más bonita.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque, aunque no puedo explicar cómo, cada día te vuelves más importante para mí.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Por involucrarte en las cosas que me gustan.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siempre me escuchas aunque hablo un montón.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siempre tienes una perspectiva interesante de las cosas.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siempre estás dispuesta a probar cosas nuevas conmigo.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siempre me das la sensación de que todo va a estar bien.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque eres la única persona por laque compraria un ramo buchón jajjaja.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siempre jalas a cualquier plan.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque tenemos una comunicación increible.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque me quieres completa.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siempre me alegras los días.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque pasar aunque sea un dia contigo me hacen toda la semana.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque podemos platicar tanto de cosas tontas como de cosas serias.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siento que nos complementamos increible.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque eres una persona super sincera.</p>
+    </div>
+    <div class="tarjeta">
+        <p>Porque siento que estoy donde debo estar contigo.</p>
+    </div>
+    <br>
+    <a class="volver" onclick="volverInicio()">Volver</a>
+</div>
+
+<div class="seccion" id="oops">
+    <h1>Oops</h1>
+    <br>
+    <div class="galeria">
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/fRw0fDHQ/IMG-0140.jpg" alt="Descripción de la foto 1">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/Y97JPLYS/IMG-0183.jpg" alt="Descripción de la foto 2">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/dt6gx0Vs/IMG-3199.jpg" alt="Descripción de la foto 3">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/5y7TjPGH/IMG-3619.jpg" alt="Descripción de la foto 4">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/Gm7fQShq/IMG-3399.jpg" alt="Descripción de la foto 5">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/HnRdcs81/IMG-8450.jpg" alt="Descripción de la foto 6">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/Wbps3CD4/IMG-1753.jpg" alt="Descripción de la foto 7">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/nzKDGgYW/2056b4bd-6749-41aa-b08d-93a60ba18655.jpg" alt="Descripción de la foto 8">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/7YtT9g0q/IMG-3044.jpg" alt="Descripción de la foto 9">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/N0n9tTQQ/IMG-2638.jpg" alt="Descripción de la foto 10">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/MZNSYHHh/IMG-3407.jpg" alt="Descripción de la foto 11">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/1zyjtpt1/IMG-3325.jpg" alt="Descripción de la foto 12">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/fyZgH44S/750c9b6f-db79-45d4-8271-6909339bfe55.jpg" alt="Descripción de la foto 13">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/xd8QRzGV/IMG-0647.jpg" alt="Descripción de la foto 14">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/J4y6QvQp/IMG-0181.jpg" alt="Descripción de la foto 15">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/PrTByDhV/IMG-7632.jpg" alt="Descripción de la foto 16">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/1zkdqnJH/IMG-3230.jpg" alt="Descripción de la foto 17">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/gJ3Tqz7P/IMG-2898.jpg" alt="Descripción de la foto 18">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/j5Zg8r9F/IMG-1012.jpg" alt="Descripción de la foto 19">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/DwXN7HJS/IMG-2520.jpg" alt="Descripción de la foto 20">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/rsxtQmXM/IMG-7265.jpg" alt="Descripción de la foto 21">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/ncfmMvBz/IMG-3187.jpg" alt="Descripción de la foto 22">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/rmc3njpK/IMG-6447.jpg" alt="Descripción de la foto 23">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/3RKfCwLG/IMG-1458.jpg" alt="Descripción de la foto 24">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/SR49zXD0/Screenshot-2025-03-22-at-9-09-48-p-m.png" alt="Descripción de la foto 25">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/BZCLVnm6/Screenshot-2025-03-22-at-9-11-56-p-m.png" alt="Descripción de la foto 26">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/65sjYz1w/Screenshot-2025-03-22-at-9-03-20-p-m.png" alt="Descripción de la foto 27">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/FKXBzp3D/IMG-1462.jpg" alt="Descripción de la foto 28">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/C5xtYKk0/IMG-7803.jpg" alt="Descripción de la foto 29">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/MG62Gj3j/IMG-3415.jpg" alt="Descripción de la foto 30">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/gctt8m3w/IMG-0236-2.jpg" alt="Descripción de la foto 31">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/BQtyVXJc/IMG-3824.jpg" alt="Descripción de la foto 32">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/sXZb19zK/IMG-0468.jpg" alt="Descripción de la foto 33">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/k5NhbSy9/IMG-1461.jpg" alt="Descripción de la foto 34">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/4yYDVdd5/Screenshot-2025-03-22-at-9-21-23-p-m.png" alt="Descripción de la foto 35">
+        </div>
+        <div class="foto-oops">
+            <img src="https://i.postimg.cc/YCDyf75D/Screenshot-2025-03-22-at-9-28-13-p-m.png" alt="Descripción de la foto 36">
+        </div>
+    </div>
+    <a class="volver" onclick="volverInicio()">Volver</a>
+</div>
+
+<!-- Sección de Juegos - GÓTICO -->
+<div class="seccion" id="juegos">
+    <h1>Juegos</h1>
+    
+    <div class="menu-juegos">
+        <button onclick="iniciarJuego('nosferatu_run')">
+            <i class="fas fa-ghost fa-2x"></i>
+            <span>Nosferatu Run</span>
+        </button>
+        <button onclick="iniciarJuego('chorejas_jump')">
+            <i class= "fa-solid fa-hotdog fa-2x"></i>
+            <span>Chorejas Jump</span>
+        </button>
+        <button onclick="iniciarJuego('mininos')">
+            <i class="fas fa-cat fa-2x"></i>
+            <span>Mininos</span>
+        </button>
+        <button onclick="iniciarJuego('corolla_cross')">
+            <i class="fas fa-car-side fa-2x"></i>
+            <span>Corolla Cross</span>
+        </button>
+        <button onclick="iniciarJuego('mojack_man')">
+            <i class="fas fa-horse-head fa-2x"></i>
+            <span>Mojack-Man</span>
+        </button>
+    </div>
+
+    <a class="volver" onclick="volverInicio()">Volver</a>
+</div>
+
+<script>
+// Constantes y configuración
+const CONTRASENA_CORRECTA = "sisoynovia";
+const MAX_INTENTOS = 5;
+const TIEMPO_BLOQUEO = 300; // 5 minutos en segundos
+
+// Variables de estado
+let intentosRestantes = parseInt(localStorage.getItem('intentosRestantes')) || MAX_INTENTOS;
+let bloqueado = localStorage.getItem('bloqueado') === 'true' || false;
+let tiempoBloqueoRestante = parseInt(localStorage.getItem('tiempoBloqueoRestante')) || 0;
+let temporizadorBloqueo;
+
+// Inicialización
+document.addEventListener('DOMContentLoaded', function() {
+    // Configurar eventos
+    document.getElementById('togglePassword').addEventListener('click', togglePasswordVisibility);
+    document.getElementById('contrasena').addEventListener('keypress', handleEnterKey);
+    document.getElementById('btn-entrar').addEventListener('click', verificarContrasena);
+
+    // Verificar estado de bloqueo
+    if (bloqueado && tiempoBloqueoRestante > 0) {
+        iniciarBloqueo();
+    } else {
+        actualizarContadorIntentos();
+    }
+
+    // Verificar si venimos de la sección de juegos
+    const vieneDeJuegos = sessionStorage.getItem('volverAJuegos') === 'true';
+    const hashJuegos = window.location.hash === '#juegos';
+    
+    if (vieneDeJuegos || hashJuegos) {
+        sessionStorage.removeItem('volverAJuegos');
+        accesoPermitido();
+        mostrarSeccion('juegos');
+    }
+
+    // Iniciar temporizador
+    setInterval(actualizarTemporizador, 1000);
+});
+
+function togglePasswordVisibility() {
+    const contrasenaInput = document.getElementById('contrasena');
+    const tipo = contrasenaInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    contrasenaInput.setAttribute('type', tipo);
+    this.innerHTML = tipo === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+}
+
+function handleEnterKey(e) {
+    if (e.key === 'Enter' && !bloqueado) {
+        verificarContrasena();
+    }
+}
+
+function verificarContrasena() {
+    if (bloqueado) return;
+
+    const contrasenaIngresada = document.getElementById('contrasena').value.trim();
+    
+    if (contrasenaIngresada === CONTRASENA_CORRECTA) {
+        accesoPermitido();
+    } else {
+        intentoFallido();
+    }
+}
+
+function accesoPermitido() {
+    document.getElementById('contrasena').value = '';
+    document.getElementById('pantalla-contrasena').style.display = 'none';
+    document.getElementById('mensaje-error').style.display = 'none';
+    document.getElementById('mensaje-bloqueo').style.display = 'none';
+    
+    document.getElementById('inicio').style.display = 'block';
+    document.getElementById('titulo-esquina').style.display = 'block';
+    
+    intentosRestantes = MAX_INTENTOS;
+    localStorage.setItem('intentosRestantes', intentosRestantes);
+    actualizarContadorIntentos();
+}
+
+function volverAPantallaContrasena() {
+    document.getElementById('inicio').style.display = 'none';
+    document.getElementById('titulo-esquina').style.display = 'none';
+    document.querySelectorAll('.seccion').forEach(sec => sec.style.display = 'none');
+    
+    document.getElementById('pantalla-contrasena').style.display = 'flex';
+    document.getElementById('contrasena').focus();
+}
+
+function intentoFallido() {
+    intentosRestantes--;
+    localStorage.setItem('intentosRestantes', intentosRestantes);
+    
+    document.getElementById('mensaje-error').style.display = 'block';
+    document.getElementById('contrasena').value = '';
+    document.getElementById('contrasena').focus();
+    actualizarContadorIntentos();
+
+    if (intentosRestantes <= 0) {
+        iniciarBloqueo();
+    }
+}
+
+function actualizarContadorIntentos() {
+    document.getElementById('intentos').textContent = intentosRestantes;
+}
+
+function iniciarBloqueo() {
+    bloqueado = true;
+    localStorage.setItem('bloqueado', 'true');
+    
+    let tiempoRestante = TIEMPO_BLOQUEO;
+    localStorage.setItem('tiempoBloqueoRestante', tiempoRestante);
+    
+    document.getElementById('mensaje-bloqueo').style.display = 'block';
+    document.getElementById('mensaje-error').style.display = 'none';
+    document.getElementById('contador-intentos').style.display = 'none';
+    document.getElementById('btn-entrar').disabled = true;
+    document.getElementById('btn-entrar').style.opacity = '0.5';
+    
+    actualizarTiempoBloqueo(tiempoRestante);
+
+    if (temporizadorBloqueo) {
+        clearInterval(temporizadorBloqueo);
+    }
+    
+    temporizadorBloqueo = setInterval(() => {
+        tiempoRestante--;
+        localStorage.setItem('tiempoBloqueoRestante', tiempoRestante);
+        actualizarTiempoBloqueo(tiempoRestante);
+
+        if (tiempoRestante <= 0) {
+            finalizarBloqueo();
+        }
+    }, 1000);
+}
+
+function finalizarBloqueo() {
+    clearInterval(temporizadorBloqueo);
+    
+    bloqueado = false;
+    intentosRestantes = MAX_INTENTOS;
+    
+    localStorage.setItem('bloqueado', 'false');
+    localStorage.removeItem('tiempoBloqueoRestante');
+    localStorage.setItem('intentosRestantes', intentosRestantes);
+    
+    document.getElementById('mensaje-bloqueo').style.display = 'none';
+    document.getElementById('contador-intentos').style.display = 'block';
+    actualizarContadorIntentos();
+    document.getElementById('btn-entrar').disabled = false;
+    document.getElementById('btn-entrar').style.opacity = '1';
+}
+
+function actualizarTiempoBloqueo(segundos) {
+    const minutos = Math.floor(segundos / 60);
+    const segundosRestantes = segundos % 60;
+    document.getElementById('tiempo-restante').textContent = 
+        `${minutos}:${segundosRestantes.toString().padStart(2, '0')}`;
+}
+
+function actualizarTemporizador() {
+    const fechaInicio = new Date(2023, 10, 24, 17, 31, 0); // 24 de noviembre 2023
+    const ahora = new Date();
+    
+    // Calculamos la diferencia total en segundos
+    const diferencia = Math.floor((ahora - fechaInicio) / 1000);
+    
+    // Calculamos los años
+    let añoActual = fechaInicio.getFullYear();
+    let años = 0;
+    
+    // Avanzamos año por año para calcular exactamente cuántos años completos han pasado
+    while (true) {
+        const siguienteAño = new Date(fechaInicio);
+        siguienteAño.setFullYear(fechaInicio.getFullYear() + años + 1);
+        
+        if (siguienteAño > ahora) break;
+        años++;
+        añoActual++;
+    }
+    
+    // Calculamos meses restantes en el año actual
+    let mesActual = fechaInicio.getMonth();
+    let meses = 0;
+    
+    // Avanzamos mes por mes para calcular exactamente cuántos meses completos han pasado
+    while (true) {
+        const siguienteMes = new Date(añoActual, mesActual + meses + 1, fechaInicio.getDate());
+        if (siguienteMes > ahora) break;
+        meses++;
+    }
+    
+    // Calculamos días restantes en el mes actual
+    const fechaBaseMeses = new Date(añoActual, mesActual + meses, fechaInicio.getDate());
+    const dias = Math.floor((ahora - fechaBaseMeses) / (1000 * 60 * 60 * 24));
+    
+    // Calculamos horas, minutos y segundos del día actual
+    const horas = Math.floor((diferencia % (60 * 60 * 24)) / (60 * 60));
+    const minutos = Math.floor((diferencia % (60 * 60)) / 60);
+    const segundos = diferencia % 60;
+    
+    document.getElementById("timer").innerHTML = 
+        `${años} año${años !== 1 ? 's' : ''}, ` +
+        `${meses} mes${meses !== 1 ? 'es' : ''}, ` +
+        `${dias} día${dias !== 1 ? 's' : ''}, ` +
+        `${horas} hora${horas !== 1 ? 's' : ''}, ` +
+        `${minutos} minuto${minutos !== 1 ? 's' : ''}, ` +
+        `${segundos} segundo${segundos !== 1 ? 's' : ''}`;
+}
+
+function mostrarSeccion(id) {
+    document.querySelectorAll('.seccion').forEach(el => el.style.display = 'none');
+    document.getElementById('inicio').style.display = 'none';
+    document.getElementById(id).style.display = 'block';
+}
+
+function volverInicio() {
+    document.querySelectorAll('.seccion').forEach(el => el.style.display = 'none');
+    document.getElementById('inicio').style.display = 'block';
+}
+
+function iniciarJuego(tipoJuego) {
+
+    switch(tipoJuego) {
+        case 'nosferatu_run':
+            window.location.href = "rex.html"
+            break;
+        case 'chorejas_jump':
+            window.location.href = "chorejas.html"
+            break;
+        case 'quiz':
+            alert("Juego en desarrollo ");
+            break;
+        case 'corolla_cross':
+            window.location.href = "corolla.html"
+            break;
+        case 'mojack_man':
+            window.location.href = "mojack.html"
+            break;
+        case 'mininos':
+            window.location.href = "mininos.html"
+            break;
+        default:
+            console.log('Juego no reconocido');
+    }
+}
+/**
+* Guarda el estado de los checkboxes en localStorage
+*/
+function guardarEstadoCheckboxes() {
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        localStorage.setItem(checkbox.id, checkbox.checked);
+    });
+}
+
+/**
+* Carga el estado de los checkboxes desde localStorage
+*/
+function cargarEstadoCheckboxes() {
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        const estado = localStorage.getItem(checkbox.id);
+        if (estado !== null) {
+            checkbox.checked = estado === 'true';
+        }
+    });
+}
+
+// Agrega esto al final del event listener DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    // ... tu código existente ...
+    
+    // Cargar estado de checkboxes al iniciar
+    cargarEstadoCheckboxes();
+    
+    // Eventos para los checkboxes
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', guardarEstadoCheckboxes);
+    });
+});
+</script>
+
+</body>
+</html>
