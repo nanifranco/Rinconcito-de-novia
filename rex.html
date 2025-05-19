@@ -817,10 +817,11 @@
                 }
             });
         }
-          function volverAJuegos() {
-            // Usa la ruta completa desde la raíz del sitio
-            window.location.href = window.location.origin + '/rinconcito-de-novia/index.html#juegos';
-          }
+          
+        function volverAJuegos() {
+            // Esto te llevará a la raíz del sitio y luego al anchor #juegos
+            window.location.href = '../index.html#juegos';
+        }
 
         // Event listeners optimizados
         function manejarTeclado(e) {
