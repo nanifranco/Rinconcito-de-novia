@@ -819,10 +819,10 @@
         }
           
         function volverAJuegos() {
-            // Asumiendo que la estructura es /rinconcito-de-novia/
-            window.location.href = '/rinconcito-de-novia/index.html#juegos';
+            // Elimina cualquier caché de la página
+            window.location.replace('../index.html#juegos');
         }
-        
+                
         // Event listeners optimizados
         function manejarTeclado(e) {
             if (e.code === 'Space' || e.key === 'ArrowUp') {
