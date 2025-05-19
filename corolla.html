@@ -995,21 +995,10 @@
   </script>
 
   <script>
-    function volverAJuegos() {
-      try {
-        sessionStorage.setItem('volverAJuegos', 'true');
-        window.location.href = 'index.html';
-        setTimeout(() => {
-          window.location.hash = '#juegos';
-        }, 100);
-      } catch (error) {
-        console.error('Error al volver a juegos:', error);
-        window.location.href = 'index.html';
-      }
-    }
-
-    window.volverAJuegos = volverAJuegos;
-      
+  function volverAJuegos() {
+    // Usa la ruta completa desde la raíz del sitio
+    window.location.href = window.location.origin + '/rinconcito-de-novia/index.html#juegos';
+  }
 </script>
 </body>
 </html>
