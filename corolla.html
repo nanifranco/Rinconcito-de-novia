@@ -995,14 +995,21 @@
   </script>
 
   <script>
-    <script>
-      function volverAJuegos() {
-        // Para GitHub Pages, usa la ruta base del repositorio
-        const baseUrl = window.location.href.split('/rinconcito-de-novia')[0];
-        window.location.href = baseUrl + '/rinconcito-de-novia/index.html#juegos';
+    function volverAJuegos() {
+      try {
+        sessionStorage.setItem('volverAJuegos', 'true');
+        window.location.href = 'index.html';
+        setTimeout(() => {
+          window.location.hash = '#juegos';
+        }, 100);
+      } catch (error) {
+        console.error('Error al volver a juegos:', error);
+        window.location.href = 'index.html';
       }
+    }
+
+    window.volverAJuegos = volverAJuegos;
+      
 </script>
-    
-  </script>
 </body>
 </html>
