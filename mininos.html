@@ -28,7 +28,7 @@
             width: 95%;
             max-width: 800px;
             height: 95vh;
-            max-height: 600px;
+            max-height: 650px;
             margin: auto;
             background-color: #111;
             border: 3px solid var(--primary-color);
@@ -45,6 +45,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100%;
         }
         
         #gameFrame {
@@ -61,58 +62,47 @@
             width: 100%;
             height: 100%;
             display: none;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             background: rgba(0, 0, 0, 0.9);
-            color: white;
-            text-align: center;
-            padding: 20px;
             z-index: 10;
         }
         
-        .fallback-content h2 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-        
-        .play-button {
-            margin-top: 30px;
-            padding: 12px 30px;
-            background: var(--primary-color);
-            color: white;
+        /* Estilo unificado para ambos botones */
+        .volver-btn, .play-button {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to bottom, #222, #111);
+            color: #e0e0e0;
             border: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        
-        .play-button:hover {
-            background: #a00000;
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(139, 0, 0, 0.7);
-        }
-        
-        .back-button {
-            margin: 20px auto;
-            padding: 10px 25px;
-            background: linear-gradient(135deg, #222, #111);
-            color: var(--text-color);
-            border: 2px solid var(--primary-color);
             border-radius: 8px;
+            padding: 10px 15px;
             font-size: 1em;
             cursor: pointer;
             transition: all 0.3s;
-            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+            border: 1px solid #8b0000;
+            font-family: 'Gloria Hallelujah', cursive;
+            z-index: 20;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .volver-btn:hover, .play-button:hover {
+            background: linear-gradient(to bottom, #333, #222);
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 8px 15px rgba(139, 0, 0, 0.4);
         }
         
-        .back-button:hover {
-            background: linear-gradient(135deg, #333, #222);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+        /* Posicionamiento específico */
+        .volver-btn {
+            bottom: 20px;
+        }
+        
+        .play-button {
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
         
         .loader {
@@ -144,6 +134,7 @@
             opacity: 0.8;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="game-container">
@@ -163,7 +154,7 @@
                 <a href="https://sweaters.itch.io/ketris" class="play-button" target="_blank">Jugar ahora</a>
             </div>
         </div>
-        <button class="back-button" onclick="goBack()">Volver</button>
+        <button class="volver-btn" onclick="goBack()">Volver</button>
     </div>
 
     <script>
@@ -173,34 +164,26 @@
         const loader = document.getElementById('loader');
         const statusMessage = document.getElementById('statusMessage');
         
-        // Intentar cargar el juego con varios métodos
         function initGame() {
-            // Método 1: Verificar carga normal
             frame.onload = function() {
                 checkFrameContent();
             };
             
-            // Método 2: Verificar después de tiempo
             setTimeout(checkFrameContent, 3000);
             
-            // Método 3: Usar mutation observer
             const observer = new MutationObserver(checkFrameContent);
             observer.observe(frame, { attributes: true, childList: true });
             
-            // Método 4: Comunicación entre ventanas
             window.addEventListener('message', handleFrameMessage);
         }
         
         function checkFrameContent() {
             try {
-                // Verificar si el frame tiene contenido visible
                 if (frame.contentDocument && frame.contentDocument.body) {
                     const body = frame.contentDocument.body;
-                    
                     if (body.innerHTML.includes('iframe') || 
                         body.offsetHeight > 100 || 
                         body.querySelector('canvas, embed, object')) {
-                        // Contenido válido encontrado
                         hideLoader();
                         return;
                     }
@@ -208,13 +191,10 @@
             } catch (e) {
                 console.log("Error al verificar contenido:", e);
             }
-            
-            // Si llegamos aquí, mostrar fallback
             showFallback();
         }
         
         function handleFrameMessage(event) {
-            // Puedes agregar lógica para comunicación con el iframe aquí
             if (event.data === 'gameLoaded') {
                 hideLoader();
             }
@@ -235,12 +215,8 @@
             window.history.back();
         }
         
-        // Inicializar cuando el DOM esté listo
         document.addEventListener('DOMContentLoaded', function() {
-            // Intentar cargar el juego
             initGame();
-            
-            // Último recurso: si después de 5 segundos no hay respuesta
             setTimeout(function() {
                 if (loader.style.display !== 'none') {
                     showFallback();
