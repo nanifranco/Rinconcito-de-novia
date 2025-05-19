@@ -996,16 +996,7 @@
 
   <script>
     function volverAJuegos() {
-      try {
-        sessionStorage.setItem('volverAJuegos', 'true');
-        window.location.href = 'index.html';
-        setTimeout(() => {
-          window.location.hash = '#juegos';
-        }, 100);
-      } catch (error) {
-        console.error('Error al volver a juegos:', error);
-        window.location.href = 'index.html';
-      }
+      window.location.href = '/index.html#juegos';
     }
 
     window.volverAJuegos = volverAJuegos;
