@@ -1491,7 +1491,8 @@
         }
 
         function volverAJuegos() {
-          window.location.href = '/index.html#juegos';
+            sessionStorage.setItem('volverAJuegos', 'true');
+            window.location.href = 'index.html#juegos';
         }
 
         window.volverAJuegos = volverAJuegos;
