@@ -24,7 +24,6 @@
             background-color: var(--color-fondo);
             font-family: "Poppins", sans-serif;
             color: var(--color-texto);
-            overflow: hidden;
             background-image: url('https://www.transparenttextures.com/patterns/black-paper.png');
         }
 
@@ -64,6 +63,9 @@
             z-index: 1;
             display: none;
             border: 1px solid var(--color-primario);
+            max-height: 90vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .foto {
